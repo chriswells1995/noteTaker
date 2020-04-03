@@ -4,7 +4,7 @@ var path = require("path")
 
 const orm = require("./db/orm")
 
-
+ 
 
 var app = express()
 
@@ -62,12 +62,14 @@ app.use(express.static("public"))
   });
 
 
-  app.delete("api/notes/:id", function(req,res){
+  app.delete("/api/notes/:id", function(req,res){
+    // reference notes array and the note and req/params.id
+    // res.jason(true)
+
     console.log("deleting  ", req.params.id)
-    orm.removeNote(req.body)
+    orm.removeNote(req.params.id)
     .then(function(note){
-      console.log("delete notes ", note)
-      res.json(note)
+      res.json({okay:true})
     })
     .catch(function(error){
       console.log(error)
@@ -75,6 +77,9 @@ app.use(express.static("public"))
     })    
 
   })
+
+
+  
 
 // html calls
 

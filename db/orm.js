@@ -7,6 +7,9 @@ var writefile = util.promisify(fs.writeFile)
 var readfile = util.promisify(fs.readFile)
 
 // maybe make a global variable for ID
+// retrieve from local storage if it exists
+//  like var PORT= process.env.PORT || 8080
+
 let globalID=0;
 
 class orm{
@@ -37,9 +40,11 @@ class orm{
         const title=note.title;
         const text=note.text;
         globalID++;
+        // update local storage
         const ID = globalID;
         // same as const id=this.id++
         const newNote = {title, text, id:++this.id};
+        console.log("note id: ", newNote.id)
         return this.getNotes()
         .then(function(notes){
             console.log("notes" , notes);
@@ -63,10 +68,12 @@ class orm{
     removeNote(id){
         return this.getNotes()
         .then(function(notes){
-            notes.filter(note=>note.id!==parseInt(id))
+            console.log(notes);
+           return notes.filter(note=>note.id!==parseInt(id))
 
         })
         .then(function(filteredNotes){
+            console.log(filteredNotes)
             writefile("db/db.json", JSON.stringify(filteredNotes))
 
         })

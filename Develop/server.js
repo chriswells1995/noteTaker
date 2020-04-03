@@ -21,7 +21,6 @@ app.use(express.static("public"))
 
 // console.log(notesDB)
 
-// html calls
 
 // app.get("/", function(req, res) {
 //     res.sendFile(path.join(__dirname, "../public/index.html"));
@@ -63,9 +62,24 @@ app.use(express.static("public"))
   });
 
 
+  app.delete("api/notes/:id", function(req,res){
+    console.log("deleting  ", req.params.id)
+    orm.removeNote(req.body)
+    .then(function(note){
+      console.log("delete notes ", note)
+      res.json(note)
+    })
+    .catch(function(error){
+      console.log(error)
+      res.status(500).json(error)
+    })    
+
+  })
+
+// html calls
+
 // brings up notes.html
 app.get("/notes", function(req, res) {
-  console.log(__dirname)
   res.sendFile(path.join(__dirname, "/public/notes.html"));
 });
 

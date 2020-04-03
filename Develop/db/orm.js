@@ -6,6 +6,9 @@ var fs = require("fs")
 var writefile = util.promisify(fs.writeFile)
 var readfile = util.promisify(fs.readFile)
 
+// maybe make a global variable for ID
+let globalID=0;
+
 class orm{
     constructor(){
         this.id=0;
@@ -33,8 +36,10 @@ class orm{
     createNote(note){
         const title=note.title;
         const text=note.text;
+        globalID++;
+        const ID = globalID;
         // same as const id=this.id++
-        const newNote = {title, text, id:++this.id}
+        const newNote = {title, text, id:++this.id};
         return this.getNotes()
         .then(function(notes){
             console.log("notes" , notes);

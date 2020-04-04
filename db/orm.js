@@ -12,7 +12,7 @@ var readfile = util.promisify(fs.readFile)
 
 
 
-var globalID=localStorage.getItem("globalID", globalID) || 0;
+var globalID= 0;
 
 class orm{
     constructor(){
@@ -43,7 +43,6 @@ class orm{
         const text=note.text;
         globalID++;
         // update local storage
-        localStorage.setItem("globalID", globalID);
         const ID = globalID;
         // same as const id=this.id++
         const newNote = {title, text, id:ID};

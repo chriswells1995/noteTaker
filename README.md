@@ -1,26 +1,28 @@
-# Unit 11 Express Homework: Note Taker
+# Unit 11 Express Homework: Note Taker 
+# by Chris Wells
 
 ## Description
+A website that allows the user to write a note with a title, 
+which is then saved to a list of notes which can be viewed by clicking on the title,
+and deleted by clicking on the trash can.
 
-Create an application that can be used to write, save, and delete notes. This application will use an express backend and save and retrieve note data from a JSON file.
 
-* The application frontend has already been created, it's your job to build the backend and connect the two.
+## Development
+The focus was using express servers to create functioning webpage with API calls. 
+We had already worked with the client side of API calls, now we were working the the server side.
 
-* The following HTML routes should be created:
+I struggled a bit, nameley with the JSON file, and combining old fs functions with new topics.
+But with help I was able to figure things out mostly. My biggest critique of my current work is the ID.
+Currently the ID is assigned based off of a globalID that increases by one every time a note is created. 
+In theory this should work fine, as each note will have a unique ID, one bigger than the last, 
+but it would be more efficient to read from the JSON file and get the ID from the index number.
+As is, whenever the server is restarted (like how nodemon resets whenever a change is made in testing)
+the globalID will go back to 0, and new notes could have the same ID as previous notes. 
+I don't believe this will be an issue with the live webpage, 
+but it's still something I would like to fix in the future.
 
-  * GET `/notes` - Should return the `notes.html` file.
 
-  * GET `*` - Should return the `index.html` file
 
-* The application should have a `db.json` file on the backend that will be used to store and retrieve notes using the `fs` module.
-
-* The following API routes should be created:
-
-  * GET `/api/notes` - Should read the `db.json` file and return all saved notes as JSON.
-
-  * POST `/api/notes` - Should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client.
-
-  * DELETE `/api/notes/:id` - Should receive a query parameter containing the id of a note to delete. This means you'll need to find a way to give each note a unique `id` when it's saved. In order to delete a note, you'll need to read all notes from the `db.json` file, remove the note with the given `id` property, and then rewrite the notes to the `db.json` file.
 
 ## User Story
 
@@ -30,47 +32,4 @@ I WANT to be able to delete notes I've written before
 
 SO THAT I can organize my thoughts and keep track of tasks I need to complete
 
-## Business Context
 
-For users that need to keep track of a lot of information, it's easy to forget or be unable to recall something important. Being able to take persistent notes allows users to have written information available when needed.
-
-## Acceptance Criteria
-
-Application should allow users to create and save notes.
-
-Application should allow users to view previously saved notes.
-
-Application should allow users to delete previously saved notes.
-
-- - -
-
-## Commit Early and Often
-
-One of the most important skills to master as a web developer is version control. Building the habit of committing via Git is important for two reasons:
-
-* Your commit history is a signal to employers that you are actively working on projects and learning new skills.
-
-* Your commit history allows you to revert your codebase in the event that you need to return to a previous state.
-
-Follow these guidelines for committing:
-
-* Make single-purpose commits for related changes to ensure a clean, manageable history. If you are fixing two issues, make two commits.
-
-* Write descriptive, meaningful commit messages so that you and anyone else looking at your repository can easily understand its history.
-
-* Don't commit half-done work, for the sake of your collaborators (and your future self!).
-
-* Test your application before you commit to ensure functionality at every step in the development process.
-
-We would like you to have well over 200 commits by graduation, so commit early and often!
-
-## Submission on BCS
-
-You are required to submit the following:
-
-* The URL of the deployed application
-
-* The URL of the GitHub repository
-
-- - -
-© 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.

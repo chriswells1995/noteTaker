@@ -10,7 +10,9 @@ var readfile = util.promisify(fs.readFile)
 // retrieve from local storage if it exists
 //  like var PORT= process.env.PORT || 8080
 
-let globalID=0;
+
+
+var globalID=localStorage.getItem("globalID", globalID) || 0;
 
 class orm{
     constructor(){
@@ -41,9 +43,10 @@ class orm{
         const text=note.text;
         globalID++;
         // update local storage
+        localStorage.setItem("globalID", globalID);
         const ID = globalID;
         // same as const id=this.id++
-        const newNote = {title, text, id:++this.id};
+        const newNote = {title, text, id:ID};
         console.log("note id: ", newNote.id)
         return this.getNotes()
         .then(function(notes){
